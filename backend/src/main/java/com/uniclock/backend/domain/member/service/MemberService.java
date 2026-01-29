@@ -1,4 +1,4 @@
-package com.uniclock.backend.domain.member;
+package com.uniclock.backend.domain.member.service;
 
 public class MemberService {
 }

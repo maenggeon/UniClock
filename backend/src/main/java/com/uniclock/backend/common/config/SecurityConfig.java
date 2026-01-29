@@ -1,4 +1,4 @@
-package com.uniclock.backend;
+package com.uniclock.backend.common.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
