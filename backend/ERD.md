@@ -1,17 +1,18 @@
 
-- user
+- USERS
   - user_id (PK)
   - login_id
   - password_hash
+  - password_updated_at
   - name
   - email
-  - is_deleted
   - created_at
   - updated_at
+  - deleted_at
 
 * * *
 
-- personal_task
+- PERSONAL_TASK
   - task_id (PK)
   - user_id (FK)
   - subject
@@ -24,8 +25,9 @@
 
 * * *
 
-- team_project
+- TEAM_PROJECT
   - team_project_id (PK)
+  - owner_id (FK)
   - subject
   - title
   - description
@@ -37,7 +39,7 @@
 
 * * *
 
-- team_member
+- TEAM_MEMBER
   - team_member_id (PK)
   - team_project_id (FK)
   - user_id (FK)
@@ -50,14 +52,15 @@ UNIQUE (team_project_id, user_id)
 
 * * *
 
-- code_group
+- CODE_GROUP
   - group_code (PK)
   - group_name
 
 * * *
 
-- code_detail
+- CODE_DETAIL
   - code_id (PK)
   - group_code (FK)
   - code_name
   - sort_order
+  - is_used
