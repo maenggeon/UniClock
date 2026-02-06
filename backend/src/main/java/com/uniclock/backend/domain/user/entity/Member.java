@@ -1,4 +1,4 @@
-package com.uniclock.backend.domain.member.domain;
+package com.uniclock.backend.domain.user.entity;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
