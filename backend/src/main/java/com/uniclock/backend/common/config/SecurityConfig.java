@@ -4,6 +4,9 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
 @Configuration
@@ -11,14 +14,20 @@ import org.springframework.security.web.SecurityFilterChain;
 public class SecurityConfig {
 
     @Bean
+    public PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
+    }
+
+    @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
-                .csrf(csrf -> csrf.disable()) // CSRF 보호 비활성화 (개발 단계)
+                .csrf(AbstractHttpConfigurer::disable) // REST API이므로 CSRF 비활성화
                 .authorizeHttpRequests(auth -> auth
-                        .anyRequest().permitAll() // 모든 요청을 로그인 없이 허용
+                        .requestMatchers("/api/users/**").permitAll() // 테스트를 위해 우선 모든 유저 API 허용
+                        .anyRequest().authenticated() // 그 외 요청은 인증 필요
                 )
-                .formLogin(form -> form.disable()) // 로그인 폼 비활성화
-                .headers(headers -> headers.frameOptions(frame -> frame.disable())); // H2 콘솔 등을 위해 프레임 허용
+                .formLogin(AbstractHttpConfigurer::disable) // 기본 로그인 폼 비활성화
+                .httpBasic(AbstractHttpConfigurer::disable); // HTTP Basic 인증 비활성화
 
         return http.build();
     }
