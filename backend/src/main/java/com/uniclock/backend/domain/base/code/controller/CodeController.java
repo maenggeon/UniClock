@@ -1,7 +1,7 @@
 package com.uniclock.backend.domain.base.code.controller;
 
-import com.uniclock.backend.domain.base.code.dto.CodeDetailResponseDTO;
-import com.uniclock.backend.domain.base.code.service.CodeService;
+import com.uniclock.backend.domain.base.code.data.response.CodeDetailResponseDTO;
+import com.uniclock.backend.domain.base.code.service.CodeGroupService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,10 +16,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class CodeController {
 
-    private final CodeService codeService;
+    private final CodeGroupService codeService;
 
-    @GetMapping("/groups/{groupCode}/details")
-    public ResponseEntity<List<CodeDetailResponseDTO>> getDetails(@PathVariable String groupCode) {
-        return ResponseEntity.ok(codeService.getDetailsByGroup(groupCode));
-    }
+
 }

@@ -22,7 +22,7 @@ public class CodeDetail {
     private CodeGroup codeGroup;
 
     @Column(name = "code_name", length = 50, nullable = false)
-    private String code_name;
+    private String codeName;
 
     @Column(name = "sort_order")
     @Builder.Default
