@@ -1,21 +1,20 @@
 package com.uniclock.backend.domain.user.entity;
 
+import com.uniclock.backend.domain.base.time.BaseTime;
 import jakarta.persistence.*;
 import lombok.*;
-import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.LocalDateTime;
 
 @Getter
 @Setter
-@AllArgsConstructor
 @NoArgsConstructor
+@AllArgsConstructor
 
 @Entity
 @Table(name = "USERS")
 @Builder
-public class User {
+public class User extends BaseTime {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -29,6 +28,7 @@ public class User {
     private String passwordHash;
 
     @Column(name = "password_updated_at")
+    @Builder.Default
     private LocalDateTime passwordUpdatedAt = LocalDateTime.now();
 
     @Column(nullable = false, length = 20)
@@ -36,14 +36,6 @@ public class User {
 
     @Column(nullable = false, unique = true, length = 100)
     private String email;
-
-    @CreationTimestamp
-    @Column(name = "created_at", updatable = false)
-    private LocalDateTime createdAt;
-
-    @UpdateTimestamp
-    @Column(name = "updated_at")
-    private LocalDateTime updatedAt;
 
     @Column(name = "deleted_at")
     private LocalDateTime deletedAt;
