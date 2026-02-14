@@ -13,8 +13,12 @@ spring:
       ddl-auto: update
     show-sql: true
 
-
 jwt:
   secret: RElBUllfQU5EX0NPTU1VTklUWV9QUk9KRUNUX0RBV05BUllfQURNSU5fU0VDUkVUX0tFWQ==
   access-token-expiration-time: 1800000
   refresh-token-expiration-time: 604800000
+
+logging:
+  level:
+    com.uniclock.backend.global.security: DEBUG
+    com.uniclock.backend: INFO

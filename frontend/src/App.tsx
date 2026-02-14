@@ -1,31 +1,21 @@
-import { useEffect, useState } from 'react'
-import reactLogo from './assets/react.svg'
-// import viteLogo from '/vite.svg'
-import './App.css'
+// src/App.tsx
+import React from 'react';
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+import { SignUpPage } from './components/SignUpPage';
+import { LoginPage } from './components/LoginPage';
+import { DashboardPage } from './components/DashboardPage';
 
-function App() {
-  const [message, setMessage] = useState("");
-  
-  useEffect(() => {
-    fetch("/api/test")
-      .then(response => response.text())
-      .then(message => {
-        setMessage(message);
-      });
-  }, [])
-
+const App: React.FC = () => {
   return (
-    <>
-      <div className='App'>
-        <header className='App-header'>
-          <img src={reactLogo} className='App-logo' alt='logo' />
-          <p>
-            test : {message}
-          </p>
-        </header>
-      </div>
-    </>
+    <Router>
+      <Routes>
+        <Route path="/" element={<Navigate to="/login" replace />} />
+        <Route path="/signup" element={<SignUpPage />} />
+        <Route path="/login" element={<LoginPage />} />
+        <Route path="/dashboard" element={<DashboardPage />} />
+      </Routes>
+    </Router>
   );
-}
+};
 
-export default App
+export default App;
