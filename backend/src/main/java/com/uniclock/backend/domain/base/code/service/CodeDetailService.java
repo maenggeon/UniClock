@@ -1,12 +1,8 @@
 package com.uniclock.backend.domain.base.code.service;
 
-import com.uniclock.backend.domain.base.code.data.response.CodeDetailResponseDTO;
-import com.uniclock.backend.domain.base.code.entity.CodeDetail;
 import com.uniclock.backend.domain.base.code.repository.CodeDetailRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 @Service
 @RequiredArgsConstructor

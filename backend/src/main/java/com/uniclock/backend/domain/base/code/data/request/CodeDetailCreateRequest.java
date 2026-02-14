@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class CodeDetailCreateRequestDTO {
+public class CodeDetailCreateRequest {
 
     @NotBlank
     @Size(max = 20)

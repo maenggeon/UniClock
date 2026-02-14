@@ -12,9 +12,9 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class CodeGroupResponseDTO {
+public class CodeGroupResponse {
 
     private String groupCode;
     private String groupName;
-    private List<CodeDetailResponseDTO> details;
+    private List<CodeDetailResponse> details;
 }

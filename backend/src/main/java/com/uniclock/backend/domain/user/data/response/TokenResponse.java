@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class ToeknResponse {
+public class TokenResponse {
 
     private String accessToken;
     private String refreshToken;

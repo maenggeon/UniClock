@@ -16,16 +16,4 @@ public class JwtUserDTO {
     private String loginId;
     private String email;
     private String name;
-
-    /**
-     * User entity -> DTO
-     */
-    public static JwtUserDTO from(User user) {
-        return JwtUserDTO.builder()
-                .userId(user.getUserId())
-                .loginId(user.getLoginId())
-                .email(user.getEmail())
-                .name(user.getName())
-                .build();
-    }
 }
