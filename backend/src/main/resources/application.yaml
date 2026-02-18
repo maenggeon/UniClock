@@ -6,7 +6,7 @@ spring:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://localhost:3306/uni_clock?useSSL=false&serverTimezone=Asia/Seoul&characterEncoding=UTF-8
     username: root
-    password: 1234
+    password: dhforud
 
   jpa:
     hibernate:
@@ -20,4 +20,5 @@ jwt:
 
 logging:
   level:
-    com.uniclock.backend: DEBUG
+    com.uniclock.backend.global.security: DEBUG
+    com.uniclock.backend: INFO

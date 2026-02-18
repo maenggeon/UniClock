@@ -82,7 +82,7 @@ export const authAPI = {
 
   // 내 정보 조회
   getMyInfo: async (): Promise<UserResponse> => {
-    const response = await api.get<UserResponse>('/user/me');
+    const response = await api.get<UserResponse>('/users/me');
     return response.data;
   },
 };

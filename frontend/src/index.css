@@ -24,7 +24,7 @@ a:hover {
 
 body {
   margin: 0;
-  display: flex;
+  display: block !important;
   place-items: center;
   min-width: 320px;
   min-height: 100vh;
@@ -65,4 +65,17 @@ button:focus-visible {
   button {
     background-color: #f9f9f9;
   }
+}
+
+html, body, #root {
+  height: 100%;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+/* Vite 기본 중앙정렬 제거 */
+body {
+  display: block;
+  background: #111; /* 좌우 검은 영역 제거용 (fallback) */
 }

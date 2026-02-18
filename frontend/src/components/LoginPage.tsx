@@ -43,51 +43,57 @@ export const LoginPage: React.FC = () => {
 
   return (
     <div className="auth-container">
-      <div className="auth-card">
-        <h2>로그인</h2>
-        <form onSubmit={handleSubmit}>
-          {/* 로그인 ID */}
-          <div className="form-group">
-            <label htmlFor="loginId">로그인 ID</label>
-            <input
-              type="text"
-              id="loginId"
-              name="loginId"
-              value={formData.loginId}
-              onChange={handleChange}
-              placeholder="로그인 ID를 입력하세요"
-              autoComplete="username"
-            />
+      <div className="auth-left">
+        <h1 className="logo">Uni Clock</h1>
+        <p className="tagline">대학교</p>
+      </div>
+      <div className="auth-right">
+        <div className="auth-card">
+          <h2>로그인</h2>
+          <form onSubmit={handleSubmit}>
+            {/* 로그인 ID */}
+            <div className="form-group">
+              <label htmlFor="loginId">로그인 ID</label>
+              <input
+                type="text"
+                id="loginId"
+                name="loginId"
+                value={formData.loginId}
+                onChange={handleChange}
+                placeholder="로그인 ID를 입력하세요"
+                autoComplete="username"
+              />
+            </div>
+
+            {/* 비밀번호 */}
+            <div className="form-group">
+              <label htmlFor="password">비밀번호</label>
+              <input
+                type="password"
+                id="password"
+                name="password"
+                value={formData.password}
+                onChange={handleChange}
+                placeholder="비밀번호를 입력하세요"
+                autoComplete="current-password"
+              />
+            </div>
+
+            {/* 서버 에러 메시지 */}
+            {error && <div className="server-error">{error}</div>}
+
+            {/* 제출 버튼 */}
+            <button type="submit" className="submit-button" disabled={loading}>
+              {loading ? '로그인 중...' : '로그인'}
+            </button>
+          </form>
+
+          <div className="auth-footer">
+            계정이 없으신가요?{' '}
+            <button onClick={() => navigate('/signup')} className="link-button">
+              회원가입
+            </button>
           </div>
-
-          {/* 비밀번호 */}
-          <div className="form-group">
-            <label htmlFor="password">비밀번호</label>
-            <input
-              type="password"
-              id="password"
-              name="password"
-              value={formData.password}
-              onChange={handleChange}
-              placeholder="비밀번호를 입력하세요"
-              autoComplete="current-password"
-            />
-          </div>
-
-          {/* 서버 에러 메시지 */}
-          {error && <div className="server-error">{error}</div>}
-
-          {/* 제출 버튼 */}
-          <button type="submit" className="submit-button" disabled={loading}>
-            {loading ? '로그인 중...' : '로그인'}
-          </button>
-        </form>
-
-        <div className="auth-footer">
-          계정이 없으신가요?{' '}
-          <button onClick={() => navigate('/signup')} className="link-button">
-            회원가입
-          </button>
         </div>
       </div>
     </div>

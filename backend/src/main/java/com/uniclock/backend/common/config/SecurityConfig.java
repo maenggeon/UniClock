@@ -58,17 +58,9 @@ public class SecurityConfig {
                 // CSRF 비활성화 (JWT 사용)
                 .csrf(AbstractHttpConfigurer::disable)
 
-                // 기본 폼 로그인 비활성화
-                .formLogin(AbstractHttpConfigurer::disable)
-
-                .httpBasic(AbstractHttpConfigurer::disable)
-
                 // 세션 사용하지 않음
-                .sessionManagement(session -> session
-                        .sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-
-                .securityContext(context -> context
-                        .requireExplicitSave(false))
+                .sessionManagement(session ->
+                        session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
 
                 // 예외 처리 설정
                 .exceptionHandling(exception -> exception
@@ -84,10 +76,7 @@ public class SecurityConfig {
                 // JWT 필터 추가
                 .addFilterBefore(
                         new JwtAuthenticationFilter(jwtTokenProvider),
-                        UsernamePasswordAuthenticationFilter.class)
-
-                .exceptionHandling(exception -> exception
-                        .authenticationEntryPoint(jwtAuthenticationEntryPoint));
+                        UsernamePasswordAuthenticationFilter.class);
 
         return http.build();
     }
