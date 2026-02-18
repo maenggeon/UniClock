@@ -18,6 +18,7 @@ import java.util.Date;
 import java.util.stream.Collectors;
 
 import io.jsonwebtoken.security.Keys;
+import org.springframework.util.StringUtils;
 
 import javax.crypto.SecretKey;
 
@@ -41,16 +42,17 @@ public class JwtTokenProvider {
     /**
      * Acess Token 생성
      */
-    public String createAccessToken(String loginId, String authorities) {
+    public String createAccessToken(Long userId, String loginId, String authorities) {
         long now = System.currentTimeMillis();
-        Date validity = new Date(now + accessTokenExpTime);
 
         return Jwts.builder()
-                .setSubject(loginId)
+                .setHeaderParam("typ", "JWT")
+                .setSubject(String.valueOf(userId))
+                .claim("lid", loginId)
                 .claim("auth", authorities)
                 .claim("type", "access")
                 .setIssuedAt(new Date(now))
-                .setExpiration(validity)
+                .setExpiration(new Date(now + accessTokenExpTime))
                 .signWith(key, SignatureAlgorithm.HS256)
                 .compact();
     }
@@ -58,15 +60,16 @@ public class JwtTokenProvider {
     /**
      * Refresh Token 생성
      */
-    public String createRefreshToken(String loginId) {
+    public String createRefreshToken(Long userId, String loginId) {
         long now = System.currentTimeMillis();
-        Date validity = new Date(now + refreshTokenExpTime);
 
         return Jwts.builder()
-                .setSubject(loginId)
+                .setHeaderParam("typ", "JWT")
+                .setSubject(String.valueOf(userId))
+                .claim("lid", loginId)
                 .claim("type", "refresh")
                 .setIssuedAt(new Date(now))
-                .setExpiration(validity)
+                .setExpiration(new Date(now + refreshTokenExpTime))
                 .signWith(key, SignatureAlgorithm.HS256)
                 .compact();
     }
@@ -89,7 +92,13 @@ public class JwtTokenProvider {
                         .map(SimpleGrantedAuthority::new)
                         .collect(Collectors.toList());
 
-        UserDetails principal = new User(claims.getSubject(), "", authorities);
+        String loginId = (String) claims.get("lid");
+
+        if(!StringUtils.hasText(loginId)) {
+            loginId = claims.getSubject();
+        }
+
+        UserDetails principal = new User(loginId, "", authorities);
         return new UsernamePasswordAuthenticationToken(principal, "", authorities);
     }
 
@@ -114,9 +123,14 @@ public class JwtTokenProvider {
         return false;
     }
 
+    // Token에서 UserId 추출
+    public Long getUserId(String token) {
+        return Long.parseLong(parseClaims(token).getSubject());
+    }
+
     // Token에서 loginId 추출
     public String getLoginId(String token) {
-        return parseClaims(token).getSubject();
+        return parseClaims(token).get("lid", String.class);
     }
 
     // Token 파싱
@@ -131,6 +145,5 @@ public class JwtTokenProvider {
             return e.getClaims();
         }
     }
-
 
 }

@@ -42,8 +42,8 @@ public class AuthService {
         }
 
         // JWT 토큰 생성
-        String accessToken = jwtTokenProvider.createAccessToken(user.getLoginId(), "ROLE_USER");
-        String refreshToken = jwtTokenProvider.createRefreshToken(user.getLoginId());
+        String accessToken = jwtTokenProvider.createAccessToken(user.getUserId(), user.getLoginId(),"ROLE_USER");
+        String refreshToken = jwtTokenProvider.createRefreshToken(user.getUserId(), user.getLoginId());
 
         log.info("로그인 성공: {}", user.getLoginId());
 
@@ -61,6 +61,9 @@ public class AuthService {
             throw new IllegalArgumentException("유효하지 않은 Refresh Token입니다.");
         }
 
+        // Refresh Token에서 userId 추출
+        Long userId = jwtTokenProvider.getUserId(refreshToken);
+
         // Refresh Token에서 loginId 추출
         String loginId = jwtTokenProvider.getLoginId(refreshToken);
 
@@ -74,8 +77,8 @@ public class AuthService {
         }
 
         // 새로운 Access Token 발급
-        String newAccessToken = jwtTokenProvider.createAccessToken(loginId, "ROLE_USER");
-        String newRefreshToken = jwtTokenProvider.createRefreshToken(loginId);
+        String newAccessToken = jwtTokenProvider.createAccessToken(userId, loginId, "ROLE_USER");
+        String newRefreshToken = jwtTokenProvider.createRefreshToken(userId, loginId);
 
         log.info("토큰 재발급 성공: {}", loginId);
 
