@@ -2,24 +2,65 @@
 .auth-container {
   min-height: 100vh;
   display: flex;
+  width: 100%;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+.auth-left {
+  flex: 1.2;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding-left: 10%;
+}
+
+.logo {
+  font-size: 64px;
+  font-weight: bold;
+  letter-spacing: 1px;
+}
+
+.tagline {
+  font-size: 18px;
+  opacity: 0.9;
+  margin-top: 16px;
+}
+
+.auth-right {
+  flex: 1;
+  display: flex;
   justify-content: center;
   align-items: center;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  padding: 20px;
 }
 
 .auth-card {
-  background: white;
-  border-radius: 12px;
-  padding: 40px;
   width: 100%;
-  max-width: 450px;
-  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+  max-width: 380px;
+  padding: 60px 44px;
+  border-radius: 20px;
+  background: white;
+
+  box-shadow: 
+    0 10px 25px rgba(0,0,0,0.15),
+    0 40px 80px rgba(0,0,0.25);
+
+  backdrop-filter: blur(6px);
+  transform: translateY(-10px);
+  transition: transform .255 ease, box-shadow .255 ease;
+
+}
+
+.auth-card:hover {
+  transform: translateY(-14px);
+  box-shadow:
+    0 20px 40px rgba(0,0,0,0.18),
+    0 60px 120px rgba(0,0,0,0.30);
 }
 
 .auth-card h2 {
   text-align: center;
-  margin-bottom: 30px;
+  margin-bottom: 22px;
   color: #333;
   font-size: 28px;
   font-weight: 600;

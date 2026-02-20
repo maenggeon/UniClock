@@ -132,113 +132,119 @@ export const SignUpPage: React.FC = () => {
 
   return (
     <div className="auth-container">
-      <div className="auth-card">
-        <h2>회원가입</h2>
-        <form onSubmit={handleSubmit}>
-          {/* 로그인 ID */}
-          <div className="form-group">
-            <label htmlFor="loginId">로그인 ID</label>
-            <div className="input-with-button">
+      <div className="auth-left">
+        <h1 className="logo">Uni Clock</h1>
+        <p className="tagline">대학교</p>
+      </div>
+      <div className="auth-right">
+        <div className="auth-card">
+          <h2>회원가입</h2>
+          <form onSubmit={handleSubmit}>
+            {/* 로그인 ID */}
+            <div className="form-group">
+              <label htmlFor="loginId">로그인 ID</label>
+              <div className="input-with-button">
+                <input
+                  type="text"
+                  id="loginId"
+                  name="loginId"
+                  value={formData.loginId}
+                  onChange={handleChange}
+                  placeholder="4-50자의 영문, 숫자, _, - 사용 가능"
+                  className={formErrors.loginId ? 'error' : ''}
+                />
+                <button
+                  type="button"
+                  onClick={handleCheckLoginId}
+                  className="check-button"
+                  disabled={!formData.loginId}
+                >
+                  중복확인
+                </button>
+              </div>
+              {formErrors.loginId && <span className="error-message">{formErrors.loginId}</span>}
+              {loginIdChecked && loginIdAvailable && (
+                <span className="success-message">사용 가능한 ID입니다.</span>
+              )}
+            </div>
+
+            {/* 비밀번호 */}
+            <div className="form-group">
+              <label htmlFor="password">비밀번호</label>
+              <input
+                type="password"
+                id="password"
+                name="password"
+                value={formData.password}
+                onChange={handleChange}
+                placeholder="8-20자의 영문, 숫자, 특수문자 포함"
+                className={formErrors.password ? 'error' : ''}
+              />
+              {formErrors.password && <span className="error-message">{formErrors.password}</span>}
+            </div>
+
+            {/* 비밀번호 확인 */}
+            <div className="form-group">
+              <label htmlFor="passwordConfirm">비밀번호 확인</label>
+              <input
+                type="password"
+                id="passwordConfirm"
+                name="passwordConfirm"
+                value={formData.passwordConfirm}
+                onChange={handleChange}
+                placeholder="비밀번호를 다시 입력해주세요"
+                className={formErrors.passwordConfirm ? 'error' : ''}
+              />
+              {formErrors.passwordConfirm && (
+                <span className="error-message">{formErrors.passwordConfirm}</span>
+              )}
+            </div>
+
+            {/* 이름 */}
+            <div className="form-group">
+              <label htmlFor="name">이름</label>
               <input
                 type="text"
-                id="loginId"
-                name="loginId"
-                value={formData.loginId}
+                id="name"
+                name="name"
+                value={formData.name}
                 onChange={handleChange}
-                placeholder="4-50자의 영문, 숫자, _, - 사용 가능"
-                className={formErrors.loginId ? 'error' : ''}
+                placeholder="2-20자"
+                className={formErrors.name ? 'error' : ''}
               />
-              <button
-                type="button"
-                onClick={handleCheckLoginId}
-                className="check-button"
-                disabled={!formData.loginId}
-              >
-                중복확인
-              </button>
+              {formErrors.name && <span className="error-message">{formErrors.name}</span>}
             </div>
-            {formErrors.loginId && <span className="error-message">{formErrors.loginId}</span>}
-            {loginIdChecked && loginIdAvailable && (
-              <span className="success-message">사용 가능한 ID입니다.</span>
-            )}
+
+            {/* 이메일 */}
+            <div className="form-group">
+              <label htmlFor="email">이메일</label>
+              <input
+                type="email"
+                id="email"
+                name="email"
+                value={formData.email}
+                onChange={handleChange}
+                placeholder="example@email.com"
+                className={formErrors.email ? 'error' : ''}
+              />
+              {formErrors.email && <span className="error-message">{formErrors.email}</span>}
+            </div>
+
+            {/* 서버 에러 메시지 */}
+            {error && <div className="server-error">{error}</div>}
+
+            {/* 제출 버튼 */}
+            <button type="submit" className="submit-button" disabled={loading}>
+              {loading ? '처리 중...' : '회원가입'}
+            </button>
+          </form>
+
+          <div className="auth-footer">
+            이미 계정이 있으신가요?{' '}
+            <button onClick={() => navigate('/login')} className="link-button">
+              로그인
+            </button>
           </div>
-
-          {/* 비밀번호 */}
-          <div className="form-group">
-            <label htmlFor="password">비밀번호</label>
-            <input
-              type="password"
-              id="password"
-              name="password"
-              value={formData.password}
-              onChange={handleChange}
-              placeholder="8-20자의 영문, 숫자, 특수문자 포함"
-              className={formErrors.password ? 'error' : ''}
-            />
-            {formErrors.password && <span className="error-message">{formErrors.password}</span>}
-          </div>
-
-          {/* 비밀번호 확인 */}
-          <div className="form-group">
-            <label htmlFor="passwordConfirm">비밀번호 확인</label>
-            <input
-              type="password"
-              id="passwordConfirm"
-              name="passwordConfirm"
-              value={formData.passwordConfirm}
-              onChange={handleChange}
-              placeholder="비밀번호를 다시 입력해주세요"
-              className={formErrors.passwordConfirm ? 'error' : ''}
-            />
-            {formErrors.passwordConfirm && (
-              <span className="error-message">{formErrors.passwordConfirm}</span>
-            )}
-          </div>
-
-          {/* 이름 */}
-          <div className="form-group">
-            <label htmlFor="name">이름</label>
-            <input
-              type="text"
-              id="name"
-              name="name"
-              value={formData.name}
-              onChange={handleChange}
-              placeholder="2-20자"
-              className={formErrors.name ? 'error' : ''}
-            />
-            {formErrors.name && <span className="error-message">{formErrors.name}</span>}
-          </div>
-
-          {/* 이메일 */}
-          <div className="form-group">
-            <label htmlFor="email">이메일</label>
-            <input
-              type="email"
-              id="email"
-              name="email"
-              value={formData.email}
-              onChange={handleChange}
-              placeholder="example@email.com"
-              className={formErrors.email ? 'error' : ''}
-            />
-            {formErrors.email && <span className="error-message">{formErrors.email}</span>}
-          </div>
-
-          {/* 서버 에러 메시지 */}
-          {error && <div className="server-error">{error}</div>}
-
-          {/* 제출 버튼 */}
-          <button type="submit" className="submit-button" disabled={loading}>
-            {loading ? '처리 중...' : '회원가입'}
-          </button>
-        </form>
-
-        <div className="auth-footer">
-          이미 계정이 있으신가요?{' '}
-          <button onClick={() => navigate('/login')} className="link-button">
-            로그인
-          </button>
         </div>
       </div>
     </div>
